@@ -1,31 +1,63 @@
+# L80 GPS module
 
-> Open this page at [https://doralc.github.io/pxt-l80/](https://doralc.github.io/pxt-l80/)
 
-## Use as Extension
+This package adds functionality to the GPS breakout.
 
-This repository can be added as an **extension** in MakeCode.
+This is the Electronic Cats GPS makecode extension. Tested and works great with the L80 GPS module using MTK33x9 chipset
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **New Project**
-* click on **Extensions** under the gearwheel menu
-* search for **https://github.com/doralc/pxt-l80** and import
+These modules use TTL serial to communicate, 2 pins are required to interface
 
-## Edit this project ![Build status badge](https://github.com/doralc/pxt-l80/workflows/MakeCode/badge.svg)
+Electronic Cats invests time and resources providing this open source design, please support Electronic Cats and open-source hardware by purchasing products from Electronic Cats!
 
-To edit this repository in MakeCode.
+This is modified for micro:bit by DoraLC. Funciton init() is added to set the pin connection. 
+Direct to the original project: https://github.com/ElectronicCats/pxt-gps
 
-* open [https://makecode.microbit.org/](https://makecode.microbit.org/)
-* click on **Import** then click on **Import URL**
-* paste **https://github.com/doralc/pxt-l80** and click import
+## Usage
+```
+makerbit.connectLcd(39)
+makerbit.setLcdBacklight(LcdBacklight.On)
+makerbit.showStringOnLcd1602("hello", makerbit.position1602(LcdPosition1602.Pos1), 16)
+gps.init(
+SerialPin.P1,
+SerialPin.P2,
+BaudRate.BaudRate9600
+)
+basic.forever(function () {
+    gps.encode()
+    makerbit.showStringOnLcd1602("" + (gps.latitude()), makerbit.position1602(LcdPosition1602.Pos1), 16)
+    makerbit.showStringOnLcd1602("" + (gps.longitude()), makerbit.position1602(LcdPosition1602.Pos17), 16)
+})
 
-## Blocks preview
+```
 
-This image shows the blocks code from the last commit in master.
-This image may take a few minutes to refresh.
+## API
 
-![A rendered view of the blocks](https://github.com/doralc/pxt-l80/raw/master/.github/makecode/blocks.png)
+- `function init()` : initialize the module
 
-#### Metadata (used for search, rendering)
+- `function encode()` : encode sentence Nmea GPS  
 
-* for PXT/microbit
-<script src="https://makecode.com/gh-pages-embed.js"></script><script>makeCodeRender("{{ site.makecode.home_url }}", "{{ site.github.owner_name }}/{{ site.github.repository_name }}");</script>
+- `function latitude()` : return latitude.
+
+- `function longitude():` return longitude
+
+- `function altitude()`: return altitude in meters.
+
+- `function Date Time()`: return date and time UTC.
+
+
+## License
+
+MIT
+
+Copyright (c) 2019, Electronic Cats  
+Copyright (c) 2022, stem@eClass
+
+
+## Supported targets
+
+* for PXT/micro:bit
+
+```package
+l80
+```
+
