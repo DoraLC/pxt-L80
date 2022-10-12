@@ -58,6 +58,6 @@ Copyright (c) 2022, stem@eClass
 * for PXT/micro:bit
 
 ```package
-l80
+gps
 ```
 
